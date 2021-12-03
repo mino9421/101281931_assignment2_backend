@@ -19,11 +19,10 @@ const EmployeeSchema = new mongoose.Schema({
     emailId: {
         type: String,
         required: [true, 'Employee email required'],
-        validate: {
-        validator: [validateEmail, `Invalid email format`]
-        }
+        validate: [validateEmail, `Invalid email format`]
     }
 })
 
-const employee = mongoose.model("employee", EmployeeSchema);
+const Employee = mongoose.model("employee", EmployeeSchema);
+
 module.exports = Employee
