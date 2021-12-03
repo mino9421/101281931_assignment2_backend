@@ -18,3 +18,14 @@ mongoose.connect(DB_URL,
         process.exit()
     });
 
+app.get('/', (req, res) => {
+    res.send('<h1>MongoDB assignment2</h1>')
+})
+
+
+
+
+
+app.listen(8089, () => {
+    console.log('Server running at http://localhost:/8089/')
+})
