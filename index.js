@@ -24,7 +24,7 @@ mongoose.connect(DB_URL,
         process.exit()
     });
 
-app.get('/', async (req, res, next) => {
+app.get('/', async (req, res) => {
     console.log('root router working')
     res.send('<h1>MongoDB assignment2</h1>')
     res.end();
