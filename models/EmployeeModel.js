@@ -1,11 +1,5 @@
 const mongoose = require('mongoose');
 
-const emailRegEx = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
-
-// var validateEmail = function(email) {
-//     return emailRegEx.test(email)
-// }
-
 const EmployeeSchema = new mongoose.Schema({
 
     firstName: {
@@ -20,7 +14,6 @@ const EmployeeSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Employee email required'],
         match: /.+\@.+\..+/,
-        // validate: [validateEmail, `Invalid email format`]
     }
 })
 

@@ -3,7 +3,6 @@ const EmployeeModel = require('../models/EmployeeModel');
 
 const router = express.Router()
 
-// testers
 
 // get all employees
 router.get('/employee', async (req, res) => {
@@ -18,7 +17,7 @@ router.get('/employee', async (req, res) => {
     
 })
 
-// I think this is good to go can get employee ById
+// this will get employee ById
 router.get('/employee/:id', async (req, res) => {
     // validate request
     if(!req.body) {
@@ -36,7 +35,8 @@ router.get('/employee/:id', async (req, res) => {
     }
 
 })
-// this is working with sample object data needs work ******************
+
+// this will create new employee with the object emp given inside of the api - needs to be fixed to make it dynamic ********
 router.post('/employee', async (req, res) => {
     
     if(!req.body) {
@@ -64,10 +64,10 @@ router.post('/employee', async (req, res) => {
 
 })
 
-// I think this is good to go
+// this will findByID and update
 router.put('/employee/:id', async (req, res) => {
 
-    // it is updating by passing the string manually
+    // it is updating by passing the string manually - needs to fix to make it dynamic ***********
     EmployeeModel.findByIdAndUpdate(req.params.id, {firstName: 'cccccc'}, (err, employee) => {
         if(err) res.send({"Error": err.toString()})
         res.send("old: " + [employee._id, employee.firstName, employee.lastName, employee.emailId].join(" "))
@@ -75,7 +75,7 @@ router.put('/employee/:id', async (req, res) => {
     });
 })
 
-// done this deletes ById
+// this deletes employee ById
 router.delete('/employee/:id', async (req, res) => {
     
     try{
