@@ -19,6 +19,7 @@ const EmployeeSchema = new mongoose.Schema({
     emailId: {
         type: String,
         required: [true, 'Employee email required'],
+        match: /.+\@.+\..+/,
         // validate: [validateEmail, `Invalid email format`]
     }
 })

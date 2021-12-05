@@ -6,18 +6,20 @@ const router = express.Router()
 // testers
 
 // get all employees
-router.get('/hello', async (req, res) => {
+router.get('/employee', async (req, res) => {
     
     EmployeeModel.find({}, (err, employee) => {
         if(err) res.send({"Error": err.toString()})
-        res.send(employee)
+
+        res.send(employee.map(item => [item._id, item.firstName, item.lastName, item.emailId].join(" ")))
+
         console.log("Item retrieved")
     })
     
 })
 
 // I think this is good to go can get employee ById
-router.get('/hello/:id', async (req, res) => {
+router.get('/employee/:id', async (req, res) => {
     // validate request
     if(!req.body) {
         return res.status(400).send({
@@ -28,14 +30,14 @@ router.get('/hello/:id', async (req, res) => {
     try{
         const employee = await EmployeeModel.findById(req.params.id)
         console.log('Item retrieved')
-        res.send(employee)
+        res.send([employee._id, employee.firstName, employee.lastName, employee.emailId].join(" "))
     }catch(err){
         res.send({'Error': err.toString()})
     }
 
 })
 // this is working with sample object data needs work ******************
-router.post('/hello', async (req, res) => {
+router.post('/employee', async (req, res) => {
     
     if(!req.body) {
         return res.status(400).send({
@@ -44,9 +46,9 @@ router.post('/hello', async (req, res) => {
     }
 
     let emp = {
-        firstName: "armen",
-        lastName: "mino",
-        emailId: "mino94@gmail.com"
+        firstName: "lfdson",
+        lastName: "asd",
+        emailId: "masdno@gmaad.casdm"
     }
 
     const employee = new EmployeeModel(emp)
@@ -56,27 +58,25 @@ router.post('/hello', async (req, res) => {
         console.log("Emplyee record saved")
         res.status(200).send("Employee record saved")
     }catch(err){
-        console.log("ERROR: Employee record saved: " + err)
+        console.log(err._message)
         res.status(500).send(err)
     }
 
 })
 
 // I think this is good to go
-router.put('/hello/:id', async (req, res) => {
-   
-    EmployeeModel.find({}, (err, employee) => {
+router.put('/employee/:id', async (req, res) => {
+
+    // it is updating by passing the string manually
+    EmployeeModel.findByIdAndUpdate(req.params.id, {firstName: 'cccccc'}, (err, employee) => {
         if(err) res.send({"Error": err.toString()})
-        EmployeeModel.findByIdAndUpdate(req.params.id, {firstname: 'levon'}, (err, employee) => {
-            if(err) res.send({"Error": err.toString()})
-            res.send(employee)
-            console.log("Item Updated")
-        });
-    })
+        res.send("old: " + [employee._id, employee.firstName, employee.lastName, employee.emailId].join(" "))
+        console.log("Item Updated")
+    });
 })
 
 // done this deletes ById
-router.delete('/hello/:id', async (req, res) => {
+router.delete('/employee/:id', async (req, res) => {
     
     try{
         const employee = await EmployeeModel.findByIdAndDelete(req.params.id)     
